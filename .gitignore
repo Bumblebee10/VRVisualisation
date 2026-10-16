@@ -1,25 +1,19 @@
-# Godot 4.2+ specific ignores
-~*.dll
-
-# Godot 4+ specific ignores
+# Godot 4+ specific
 .godot/
-.nomedia
 
-# Godot-specific ignores
+# Godot 3.x specific
 .import/
-export.cfg
+
+# Exported binaries
+export/
+build/
+bin/
+
+# Local editor settings (optional)
+# Some prefer to keep these, others ignore them to avoid personal setting conflicts
+.vscode/
+.idea/
+*.swp
+
+# Sensitive credentials (especially for Android exports)
 export_credentials.cfg
-*.tmp
-
-# Imported translations (automatically generated from CSV files)
-*.translation
-
-# Mono-specific ignores
-.mono/
-data_*/
-mono_crash.*.json
-
-# Export outputs
-*.exe
-# Uncomment if your project does not version PCK files as runtime dependencies.
-# *.pck

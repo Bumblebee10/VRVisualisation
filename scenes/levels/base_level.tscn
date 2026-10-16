@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bas238v6il42s"]
+
+[ext_resource type="Script" uid="uid://cvoixelxknr6t" path="res://scenes/levels/BaseLevel.cs" id="1_uk53i"]
+[ext_resource type="MeshLibrary" uid="uid://5befjqaqells" path="res://assets/meshlibs/walls-tiles.meshlib" id="2_uk53i"]
+
+[node name="BaseLevel" type="Node3D" unique_id=113800226]
+script = ExtResource("1_uk53i")
+
+[node name="Rooms" type="Node3D" parent="." unique_id=540883177]
+
+[node name="PlayerSpawn" type="Node3D" parent="." unique_id=588236999]
+unique_name_in_owner = true
+
+[node name="Hallways" type="Node3D" parent="." unique_id=715007728]
+
+[node name="Floors" type="GridMap" parent="Hallways" unique_id=1456009944]
+mesh_library = ExtResource("2_uk53i")
+cell_size = Vector3(1, 1, 1)
+cell_center_y = false
