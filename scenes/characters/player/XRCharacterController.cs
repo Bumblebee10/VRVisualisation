@@ -32,20 +32,24 @@ public partial class XRCharacterController : XROrigin3D
 			return;
 		}
 
-		var camera_transform = this.Transform * camera.Transform;
+		// Find the horizontal offset between the body
+        // and the tracked headset, in world space.
+        Vector3 headOffset =
+            camera.GlobalPosition - characterBody.GlobalPosition;
 
-		// determine the new position
-		Vector3 new_position = camera_transform.Origin * new Vector3(1, 0 ,1);
+        headOffset.Y = 0;
 
-		new_position = characterBody.GlobalTransform * new_position;
+        // Move the collision body toward the headset.
+        Vector3 originalPosition = characterBody.GlobalPosition;
 
-		var original_position = characterBody.GlobalPosition;
+        characterBody.MoveAndCollide(headOffset);
 
-		characterBody.MoveAndCollide(new_position - original_position);
+        // Find how far the body actually moved after collisions.
+        Vector3 actualMovement =
+            characterBody.GlobalPosition - originalPosition;
 
-		var delta_movement = characterBody.GlobalPosition = original_position;
-		delta_movement = characterBody.GlobalBasis.Inverse() * delta_movement;
-		Position -= delta_movement;
+        // Compensate by moving the XR origin in the opposite direction.
+        GlobalPosition -= actualMovement;
     }
 
 }

@@ -29,3 +29,15 @@ shadow_enabled = true
 [node name="UI" parent="." unique_id=123153430 instance=ExtResource("2_sl2e5")]
 
 [node name="Level-01-Welcome" parent="." unique_id=113800226 instance=ExtResource("2_1fp7r")]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=760989576]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1978350466]
+handle_input_locally = false
+size = Vector2i(256, 256)
+render_target_update_mode = 4
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1312243502]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94454056, -2.9201367)

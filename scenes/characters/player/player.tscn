@@ -51,38 +51,35 @@ near = 0.001
 transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
 mesh = SubResource("SphereMesh_grdoj")
 
-[node name="Label3D" type="Label3D" parent="XROrigin3D/Camera3D" unique_id=1699919177]
+[node name="LabelHead" type="Label3D" parent="XROrigin3D/Camera3D" unique_id=1699919177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0076583326, 0.43252027, -0.017428935)
 billboard = 1
 text = "Head"
 
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=542646283]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2832487, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62172306, 0.58881605, -1.1157461)
 tracker = &"left_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand" unique_id=655952722]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7435672, 0.48236147, -1.0292917)
 mesh = SubResource("BoxMesh_grdoj")
 
-[node name="Label3D" type="Label3D" parent="XROrigin3D/LeftHand" unique_id=1777607361]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.79360306, 0.7010504, -0.9919287)
+[node name="LabelLeftHand" type="Label3D" parent="XROrigin3D/LeftHand" unique_id=1777607361]
 billboard = 1
 text = "Lefthand"
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D" unique_id=1585480981]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.0523646, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77258897, 0.51972616, -1.0416814)
 tracker = &"right_hand"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand" unique_id=1879361130]
-transform = Transform3D(-0.98, 0, 0, 0, -0.9800004, 0, 0, 0, -0.98, -0.45584863, 0.51071614, -0.9893321)
+transform = Transform3D(-0.98, 0, 0, 0, -0.9800004, 0, 0, 0, -0.98, 0, 0, 0)
 mesh = SubResource("BoxMesh_mxvw0")
 
-[node name="Label3D" type="Label3D" parent="XROrigin3D/RightHand" unique_id=2051507898]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.45910048, 0.70105046, -0.9919287)
+[node name="LabelRighthand" type="Label3D" parent="XROrigin3D/RightHand" unique_id=2051507898]
 billboard = 1
 text = "Righthand"
 
-[node name="Label3D" type="Label3D" parent="." unique_id=486688257]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.057346955, 0)
+[node name="LabelOrigin" type="Label3D" parent="XROrigin3D" unique_id=486688257]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05734696, 0)
 billboard = 1
 text = "Origin"
