@@ -50,4 +50,21 @@ projection = 1
 size = 5.2
 
 [node name="Playernew" parent="." unique_id=1329737805 instance=ExtResource("4_6m72w")]
-transform = Transform3D(-4.371139e-08, 0, -0.9999999, 0, 0.9999998, 0, 1, 0, -4.3711385e-08, 2.8031425, 0, -11.866038)
+transform = Transform3D(-4.371139e-08, 0, -0.9999999, 0, 0.9999998, 0, 1, 0, -4.3711385e-08, 2.8031425, 0.6166444, -11.866038)
+UpperBodyHeight = 0.75
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1181201606]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1917114, -0.32323194, -15.225309)
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=351014557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1917114, -0.123865366, -16.229893)
+use_collision = true
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=972292331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1917114, 0.06672418, -17.250006)
+use_collision = true
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=353521830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1917114, 0.26609075, -18.25459)
+use_collision = true

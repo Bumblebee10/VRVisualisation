@@ -13,12 +13,77 @@ public partial class XRCharacterController : XROrigin3D
 	[Export] Camera3D headCam;
 	[Export] Fade fade;
 
+	//height calibration
+	[Export] public bool AutoCalibrate = true;
+
+	[Export(PropertyHint.Range, "0.5,2.5,0.01")] public float HeadHeight = 1.7f;
+
+	private bool calibrated = false;
+	private OpenXRInterface openXR;
+
 	float fadeStart = 0.15f;
 	float fadeEnd = 0.4f;
 
     public override void _Ready()
 	{
-		
+		openXR = XRServer.FindInterface("OpenXR") as OpenXRInterface;
+
+		if (openXR != null)
+		{
+			openXR.SessionVisible += OnSessionVisible;
+			openXR.PoseRecentered += OnPoseRecentered;
+		}
+
+		if (AutoCalibrate)
+		{
+			CalibrateHeight();
+		}
+	}
+
+	public void CalibrateHeight()
+	{
+		var tracker = XRServer.GetTracker("head") as XRPositionalTracker;
+
+		if (tracker == null)
+		{
+			return;
+		}
+
+		var pose = tracker.GetPose("default");
+
+		if (pose == null || !pose.HasTrackingData)
+		{
+			return;
+		}
+
+		Transform3D headTransform = pose.GetAdjustedTransform();
+
+		float trackedHeight = headTransform.Origin.Y;
+		float heightAdjustment = HeadHeight - trackedHeight;
+
+		Vector3 originPosition = Position;
+		originPosition.Y = heightAdjustment;
+		Position = originPosition;
+
+		calibrated = true;
+
+		GD.Print($"Calibrated height: {heightAdjustment}");
+	}
+
+	private void OnSessionVisible()
+	{
+		if (AutoCalibrate && !calibrated)
+		{
+			CalibrateHeight();
+		}
+	}
+
+	private void OnPoseRecentered()
+	{
+		if (AutoCalibrate)
+		{
+			CalibrateHeight();
+		}
 	}
 
 
@@ -93,5 +158,20 @@ public partial class XRCharacterController : XROrigin3D
 
 		//GD.Print(fadeAmount);
 	}
+
+
+    public override void _ExitTree()
+    {
+        base._ExitTree();
+
+		if (openXR == null)
+		{
+			return;
+		}
+
+		openXR.SessionVisible -= OnSessionVisible;
+		openXR.PoseRecentered -= OnPoseRecentered;
+    }
+
 
 }

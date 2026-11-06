@@ -7,36 +7,35 @@
 [ext_resource type="PackedScene" uid="uid://bhy4jvw7djtyd" path="res://scenes/characters/player/vignette.tscn" id="4_qd3e3"]
 [ext_resource type="PackedScene" uid="uid://ceyurav5xb3gi" path="res://fade.tscn" id="5_6avc5"]
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6avc5"]
+radius = 0.25
+height = 0.75
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grdoj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38ygm"]
-transparency = 1
-albedo_color = Color(0, 1, 1, 0.10980392)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gwprl"]
+resource_local_to_scene = true
 
 [sub_resource type="SphereMesh" id="SphereMesh_grdoj"]
 
-[node name="Playernew" type="CharacterBody3D" unique_id=1329737805 node_paths=PackedStringArray("movement_controller", "turn_controller", "vignette")]
+[node name="Playernew" type="CharacterBody3D" unique_id=1329737805 node_paths=PackedStringArray("movement_controller", "turn_controller", "vignette", "HeadCamera", "bodyCollision", "floorRayCast")]
 transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999999, 0, 0, 0)
 script = ExtResource("1_hss88")
 movement_controller = NodePath("XROrigin3D/LeftHand")
 turn_controller = NodePath("XROrigin3D/RightHand")
 vignette = NodePath("XROrigin3D/Camera3D/Vignette")
+HeadCamera = NodePath("XROrigin3D/Camera3D")
+HeadOffset = 0.05
+bodyCollision = NodePath("BodyCollision")
+bodyShape = SubResource("CapsuleShape3D_6avc5")
+floorRayCast = NodePath("FloorRayCast")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2043269275]
+[node name="BodyCollision" type="CollisionShape3D" parent="." unique_id=2043269275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_grdoj")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=1151783276]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = SubResource("StandardMaterial3D_38ygm")
-mesh = SubResource("CapsuleMesh_gwprl")
 
 [node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=255893459 node_paths=PackedStringArray("camera", "bodyColl", "headCam", "fade")]
 script = ExtResource("2_t61fv")
 camera = NodePath("Camera3D")
-bodyColl = NodePath("../CollisionShape3D")
+bodyColl = NodePath("../BodyCollision")
 headCam = NodePath("Camera3D")
 fade = NodePath("Camera3D/Fade")
 
@@ -88,5 +87,7 @@ transform = Transform3D(-0.255, 0, -3.8503927e-08, 0, 0.255, 0, 3.8503927e-08, 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05734696, 0)
 billboard = 1
 text = "Origin"
+
+[node name="FloorRayCast" type="RayCast3D" parent="." unique_id=1868640065]
 
 [editable path="XROrigin3D/Camera3D/MeshInstance3D/Sunglasses"]
