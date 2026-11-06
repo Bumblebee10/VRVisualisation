@@ -1,33 +1,28 @@
 [gd_scene format=3 uid="uid://b3gi3yqvwb45o"]
 
-[ext_resource type="Script" uid="uid://ddye7q6tqav7c" path="res://scenes/characters/player/Player.cs" id="1_7uws0"]
+[ext_resource type="Script" uid="uid://ccaj4qoidc8s8" path="res://scenes/characters/player/PlayerNew.cs" id="1_hss88"]
 [ext_resource type="Script" uid="uid://srgbt3f6l7h4" path="res://scenes/characters/player/XRCharacterController.cs" id="2_t61fv"]
+[ext_resource type="PackedScene" uid="uid://cagex3skqy064" path="res://assets/meshes/Sunglasses.glb" id="3_686vu"]
+[ext_resource type="PackedScene" uid="uid://ca1hsj2wnbjn2" path="res://assets/meshes/Hand.glb" id="4_hss88"]
+[ext_resource type="PackedScene" uid="uid://bhy4jvw7djtyd" path="res://scenes/characters/player/vignette.tscn" id="4_qd3e3"]
+[ext_resource type="PackedScene" uid="uid://ceyurav5xb3gi" path="res://fade.tscn" id="5_6avc5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_grdoj"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_38ygm"]
 transparency = 1
-albedo_color = Color(0, 1, 1, 0.21568628)
+albedo_color = Color(0, 1, 1, 0.10980392)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_gwprl"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_grdoj"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_grdoj"]
-size = Vector3(0.3, 0.3, 0.3)
-
-[sub_resource type="BoxMesh" id="BoxMesh_mxvw0"]
-size = Vector3(0.3, 0.3, 0.3)
-
-[node name="Player" type="CharacterBody3D" unique_id=1329737805]
+[node name="Playernew" type="CharacterBody3D" unique_id=1329737805 node_paths=PackedStringArray("movement_controller", "turn_controller", "vignette")]
 transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999999, 0, 0, 0)
-script = ExtResource("1_7uws0")
-Acceleration = 30.0
-JumpForce = 12.0
-Gravity = 0.98
-MouseSensitivity = 0.002
-RunSpeed = 5.0
-WalkSpeed = 3.0
+script = ExtResource("1_hss88")
+movement_controller = NodePath("XROrigin3D/LeftHand")
+turn_controller = NodePath("XROrigin3D/RightHand")
+vignette = NodePath("XROrigin3D/Camera3D/Vignette")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2043269275]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -38,48 +33,60 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_38ygm")
 mesh = SubResource("CapsuleMesh_gwprl")
 
-[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=255893459]
+[node name="XROrigin3D" type="XROrigin3D" parent="." unique_id=255893459 node_paths=PackedStringArray("camera", "bodyColl", "headCam", "fade")]
 script = ExtResource("2_t61fv")
+camera = NodePath("Camera3D")
+bodyColl = NodePath("../CollisionShape3D")
+headCam = NodePath("Camera3D")
+fade = NodePath("Camera3D/Fade")
 
 [node name="Camera3D" type="XRCamera3D" parent="XROrigin3D" unique_id=1704269059]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1.0000002, 0, 0, 0, 1.0000001, 0, 1.5000001, 0)
+cull_mask = 1048573
 current = true
 near = 0.001
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/Camera3D" unique_id=981063925]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 0, 0, 0)
+transform = Transform3D(0.54, 0, 0, 0, 0.54, 0, 0, 0, 0.54, 0, 0, 0)
+layers = 2
 mesh = SubResource("SphereMesh_grdoj")
+
+[node name="Sunglasses" parent="XROrigin3D/Camera3D/MeshInstance3D" unique_id=263299253 instance=ExtResource("3_686vu")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0, 0, -0.48550203)
+
+[node name="Cube" parent="XROrigin3D/Camera3D/MeshInstance3D/Sunglasses" index="1" unique_id=571787969]
+layers = 2
 
 [node name="LabelHead" type="Label3D" parent="XROrigin3D/Camera3D" unique_id=1699919177]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0076583326, 0.43252027, -0.017428935)
 billboard = 1
 text = "Head"
 
+[node name="Vignette" parent="XROrigin3D/Camera3D" unique_id=507731644 instance=ExtResource("4_qd3e3")]
+visible = false
+Radius = 0.6
+
+[node name="Fade" parent="XROrigin3D/Camera3D" unique_id=150254729 instance=ExtResource("5_6avc5")]
+transform = Transform3D(1, 0, 0, 0, 0.9999998, 0, 0, 0, 0.9999999, 0, -1.4999999, 0)
+
 [node name="LeftHand" type="XRController3D" parent="XROrigin3D" unique_id=542646283]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.62172306, 0.58881605, -1.1157461)
 tracker = &"left_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/LeftHand" unique_id=655952722]
-mesh = SubResource("BoxMesh_grdoj")
-
-[node name="LabelLeftHand" type="Label3D" parent="XROrigin3D/LeftHand" unique_id=1777607361]
-billboard = 1
-text = "Lefthand"
+[node name="LeftHand" parent="XROrigin3D/LeftHand" unique_id=1280766706 instance=ExtResource("4_hss88")]
+transform = Transform3D(0.25, 0, -3.8503927e-08, 0, 0.255, 0, -3.774895e-08, 0, -0.255, 0, 0, 0)
 
 [node name="RightHand" type="XRController3D" parent="XROrigin3D" unique_id=1585480981]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77258897, 0.51972616, -1.0416814)
 tracker = &"right_hand"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="XROrigin3D/RightHand" unique_id=1879361130]
-transform = Transform3D(-0.98, 0, 0, 0, -0.9800004, 0, 0, 0, -0.98, 0, 0, 0)
-mesh = SubResource("BoxMesh_mxvw0")
-
-[node name="LabelRighthand" type="Label3D" parent="XROrigin3D/RightHand" unique_id=2051507898]
-billboard = 1
-text = "Righthand"
+[node name="RightHand" parent="XROrigin3D/RightHand" unique_id=1568876118 instance=ExtResource("4_hss88")]
+transform = Transform3D(-0.255, 0, -3.8503927e-08, 0, 0.255, 0, 3.8503927e-08, 0, -0.255, 0, 0, 0)
 
 [node name="LabelOrigin" type="Label3D" parent="XROrigin3D" unique_id=486688257]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05734696, 0)
 billboard = 1
 text = "Origin"
+
+[editable path="XROrigin3D/Camera3D/MeshInstance3D/Sunglasses"]

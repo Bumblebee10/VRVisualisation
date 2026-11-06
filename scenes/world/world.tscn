@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d30nvbxb585v5" path="res://scenes/world/World.cs" id="1_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://csjgov3pqdkoj" path="res://scenes/levels/level_01_welcome.tscn" id="2_1fp7r"]
 [ext_resource type="PackedScene" uid="uid://37tccejpw454" path="res://scenes/ui/ui.tscn" id="2_sl2e5"]
+[ext_resource type="PackedScene" uid="uid://b3gi3yqvwb45o" path="res://scenes/characters/player/player.tscn" id="4_6m72w"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_4rhad"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -15,6 +16,9 @@ sky_material = SubResource("ProceduralSkyMaterial_4rhad")
 background_mode = 2
 sky = SubResource("Sky_dphjl")
 tonemap_mode = 2
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1fp7r"]
+viewport_path = NodePath("Sprite3D/SubViewport")
 
 [node name="World" type="Node3D" unique_id=906285710]
 script = ExtResource("1_1fp7r")
@@ -29,15 +33,21 @@ shadow_enabled = true
 [node name="UI" parent="." unique_id=123153430 instance=ExtResource("2_sl2e5")]
 
 [node name="Level-01-Welcome" parent="." unique_id=113800226 instance=ExtResource("2_1fp7r")]
+script = null
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=760989576]
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=509076275]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 5.8246775, 2.0074058, -11.57622)
+texture = SubResource("ViewportTexture_1fp7r")
 
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1978350466]
+[node name="SubViewport" type="SubViewport" parent="Sprite3D" unique_id=1978350466]
 handle_input_locally = false
-size = Vector2i(256, 256)
+size = Vector2i(750, 400)
 render_target_update_mode = 4
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport" unique_id=1312243502]
-transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0.94454056, -2.9201367)
+[node name="Camera3D" type="Camera3D" parent="Sprite3D/SubViewport" unique_id=1312243502]
+transform = Transform3D(1.3113416e-07, 0, 1, 0, 1, 0, -1, 0, 1.3113416e-07, 5.5523596, 2.6446009, -12.178975)
+projection = 1
+size = 5.2
+
+[node name="Playernew" parent="." unique_id=1329737805 instance=ExtResource("4_6m72w")]
+transform = Transform3D(-4.371139e-08, 0, -0.9999999, 0, 0.9999998, 0, 1, 0, -4.3711385e-08, 2.8031425, 0, -11.866038)

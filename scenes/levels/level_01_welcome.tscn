@@ -12,7 +12,7 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -11)
 
 [node name="PlayerSpawn" parent="." index="1" unique_id=588236999]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.358254, 0, -12.102606)
 
 [node name="Floors" parent="Hallways" parent_id_path=PackedInt32Array(715007728) index="0" unique_id=1456009944]
 data = {

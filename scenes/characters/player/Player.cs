@@ -17,6 +17,8 @@ public partial class Player : CharacterBody3D
 	private Camera3D _camera;
 	private Vector2 _inputDir = Vector2.Zero;
 
+	[Export] public XRController3D movement_controller;
+
 	public override void _Ready()
 	{
 		_camera = GetNode<Camera3D>("%Camera3D");
@@ -51,8 +53,7 @@ public partial class Player : CharacterBody3D
 			: WalkSpeed;
 		GD.Print(targetSpeed);
 
-		Vector3 desiredVelocity =
-			Transform.Basis * input3DSpace * targetSpeed;
+		Vector3 desiredVelocity = Transform.Basis * input3DSpace * targetSpeed;
 
 		float accelerationStep = Acceleration * (float)delta;
 
