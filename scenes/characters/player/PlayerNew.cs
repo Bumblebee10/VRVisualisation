@@ -135,7 +135,7 @@ public partial class PlayerNew : CharacterBody3D
 
 		if (floorRayCast.IsColliding())
 		{
-			GD.Print("Raycast is colliding");
+			//GD.Print("Raycast is colliding");
 
 			Vector3 collisionPoint = ToLocal(floorRayCast.GetCollisionPoint());
 

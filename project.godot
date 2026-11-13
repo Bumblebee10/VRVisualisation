@@ -11,8 +11,8 @@ config_version=5
 [application]
 
 config/name="Goblins Den Course"
-run/main_scene="uid://du4iytvqujxe7"
-config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
+run/main_scene="uid://c26kqvqnehwui"
+config/features=PackedStringArray("4.7", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [debug]
