@@ -1,22 +1,25 @@
 [gd_scene format=3 uid="uid://c26kqvqnehwui"]
 
 [ext_resource type="Script" uid="uid://f7bs7p6ou668" path="res://scenes/world/ThirdPersonCamera.cs" id="1_jb4c3"]
+[ext_resource type="Script" uid="uid://bes3fs0qh4q3i" path="res://scenes/world/SpectatorView.cs" id="1_y6g52"]
 [ext_resource type="PackedScene" uid="uid://du4iytvqujxe7" path="res://scenes/world/world.tscn" id="2_8no3l"]
 [ext_resource type="Script" uid="uid://dn5j3j4n7md0b" path="res://scenes/world/StabelizedCamera.cs" id="2_y6g52"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jb4c3"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_6yqd5"]
 viewport_path = NodePath("Sprite3D/SubViewport")
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6yqd5"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sppjm"]
 resource_local_to_scene = true
 
-[node name="SpectatorView" type="Control" unique_id=358238408]
+[node name="SpectatorView" type="Control" unique_id=358238408 node_paths=PackedStringArray("InsetCamera")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_y6g52")
+InsetCamera = NodePath("Frame/FirstPersonContainer/FirstPersonViewport/StabelizedCamera")
 
 [node name="ThirdPersonCamera" type="Camera3D" parent="." unique_id=1195618161 node_paths=PackedStringArray("Target")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4909496, -12.380984)
@@ -52,20 +55,23 @@ XRCamera = NodePath("../../../../HMD/World/Playernew/XROrigin3D/Camera3D")
 
 [node name="FOVSlider" type="HSlider" parent="Frame" unique_id=166724638]
 layout_mode = 0
-offset_left = 10.0
+offset_left = 17.0
 offset_top = 321.0
-offset_right = 124.0
+offset_right = 131.0
 offset_bottom = 337.0
+value = 70.0
 
 [node name="HMD" type="SubViewport" parent="." unique_id=1485073438]
 
 [node name="World" parent="HMD" unique_id=906285710 instance=ExtResource("2_8no3l")]
 
 [node name="Sprite3D" parent="HMD/World" index="4" unique_id=509076275]
-texture = SubResource("ViewportTexture_jb4c3")
+texture = SubResource("ViewportTexture_6yqd5")
 
 [node name="BodyCollision" parent="HMD/World/Playernew" parent_id_path=PackedInt32Array(906285710, 1329737805) index="0" unique_id=2043269275]
-shape = SubResource("CapsuleShape3D_6yqd5")
+shape = SubResource("CapsuleShape3D_sppjm")
+
+[connection signal="value_changed" from="Frame/FOVSlider" to="." method="OnFovChanged"]
 
 [editable path="HMD/World"]
 [editable path="HMD/World/Playernew"]
